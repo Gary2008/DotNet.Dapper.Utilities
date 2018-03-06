@@ -1,10 +1,13 @@
 ﻿namespace YanZhiwei.DotNet.Dapper.Utilities
 {
-    using global::Dapper;
     using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+
+    using global::Dapper;
+
+    using YanZhiwei.DotNet2.Utilities.Model;
 
     /// <summary>
     /// Dapper 数据库操作帮助类，默认是sql Server
@@ -57,7 +60,7 @@
         /// 时间：2016-01-19 16:22
         /// 备注：
         public virtual DataTable ExecuteDataTable<T>(string sql, T parameters)
-        where T : class
+            where T : class
         {
             using (IDbConnection connection = CreateConnection())
             {
@@ -87,6 +90,19 @@
         /// <summary>
         /// ExecuteNonQuery
         /// </summary>
+        /// <typeparam name="T">参数类型</typeparam>
+        /// <param name="tran">DapperTransaction</param>
+        /// <param name="sql">Sql</param>
+        /// <param name="parameters">参数</param>
+        /// <returns>影响行数</returns>
+        public virtual int ExecuteNonQuery<T>(DapperTransaction tran, string sql, T parameters)
+        {
+            return tran.DbConnection.Execute(sql, parameters, tran.DbTransaction);
+        }
+
+        /// <summary>
+        /// ExecuteNonQuery
+        /// </summary>
         /// <typeparam name="T">泛型</typeparam>
         /// <param name="sql">sql 语句</param>
         /// <param name="parameters">查询参数</param>
@@ -94,7 +110,7 @@
         /// 时间：2016-01-19 16:23
         /// 备注：
         public virtual int ExecuteNonQuery<T>(string sql, T parameters)
-        where T : class
+            where T : class
         {
             using (IDbConnection connection = CreateConnection())
             {
@@ -157,7 +173,7 @@
         /// 时间：2016-01-19 16:24
         /// 备注：
         public virtual IDataReader ExecuteReader<T>(string sql, T parameters)
-        where T : class
+            where T : class
         {
             IDbConnection connection = CreateConnection();
 
@@ -185,7 +201,7 @@
         /// 时间：2016-01-19 16:25
         /// 备注：
         public virtual object ExecuteScalar<T>(string sql, T parameters)
-        where T : class
+            where T : class
         {
             using (IDbConnection connection = CreateConnection())
             {
@@ -216,7 +232,7 @@
         /// 时间：2016-01-19 16:25
         /// 备注：
         public virtual T Query<T>(string sql, T parameters)
-        where T : class
+            where T : class
         {
             T _result = null;
             using (IDbConnection connection = CreateConnection())
@@ -237,7 +253,7 @@
         /// 时间：2016-01-19 16:25
         /// 备注：
         public virtual List<T> QueryList<T>(string sql, T parameters)
-        where T : class
+            where T : class
         {
             List<T> _result = null;
             using (IDbConnection connection = CreateConnection())
@@ -246,6 +262,31 @@
             }
 
             return _result;
+        }
+
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <typeparam name="T">返回数据类型</typeparam>
+        /// <param name="sql">sql语句</param>
+        /// <param name="pageIndex">分页索引</param>
+        /// <param name="pageSize">分页大小</param>
+        /// <returns>PageList</returns>
+        public virtual PageList<T> QueryPageList<T>(string sql, int pageIndex, int pageSize)
+            where T : class
+        {
+            using (var sqlConnection = CreateConnection())
+            {
+                using (var multi = sqlConnection.QueryMultiple(sql, null, null))
+                {
+                    PageList<T> _pageList = new PageList<T>();
+                    _pageList.Data = multi.Read<T>().ToArray();
+                    _pageList.TotalCount = multi.Read<int>().First();
+                    _pageList.TotalPage = (int)Math.Ceiling(_pageList.TotalCount / (double)pageSize);
+
+                    return _pageList;
+                }
+            }
         }
 
         #endregion Methods
