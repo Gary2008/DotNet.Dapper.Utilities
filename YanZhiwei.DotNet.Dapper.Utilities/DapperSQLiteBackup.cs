@@ -62,9 +62,9 @@
 
             try
             {
-                using(var source = new SQLiteConnection(sourceSqliteDaoString))
+                using (var source = new SQLiteConnection(sourceSqliteDaoString))
                 {
-                    using(var destination = new SQLiteConnection(backupSqliteDaoString))
+                    using (var destination = new SQLiteConnection(backupSqliteDaoString))
                     {
                         source.Open();
                         destination.Open();
@@ -73,8 +73,7 @@
                     }
                 }
             }
-
-            catch(Exception)
+            catch (Exception)
             {
                 _result = false;
             }
@@ -94,13 +93,13 @@
             int _result = 0;
             DataTable _tables = _sqlHelper.ExecuteDataTable("select NAME from SQLITE_MASTER where type='table' order by NAME;");
 
-            if(_tables != null && _tables.Rows.Count > 0)
+            if (_tables != null && _tables.Rows.Count > 0)
             {
-                using(var trans = _sqlHelper.BeginTranscation())
+                using (var trans = _sqlHelper.BeginTranscation())
                 {
                     try
                     {
-                        foreach(DataRow table in _tables.Rows)
+                        foreach (DataRow table in _tables.Rows)
                         {
                             string _tableName = table["NAME"].ToString();
                             string _sql = string.Format("delete from {0};", _tableName);
@@ -109,8 +108,7 @@
 
                         trans.Commit();
                     }
-
-                    catch(Exception)
+                    catch (Exception)
                     {
                         trans.Rollback();
                         _result = 0;
