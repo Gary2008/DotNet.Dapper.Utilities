@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YanZhiwei.DotNet.Dapper.Utilities", "YanZhiwei.DotNet.Dapper.Utilities\YanZhiwei.DotNet.Dapper.Utilities.csproj", "{B1BEC8D9-0F84-423E-9794-CBEE45D845B1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YanZhiwei.DotNet.Dapper.UtilitiesTests", "YanZhiwei.DotNet.Dapper.UtilitiesTests\YanZhiwei.DotNet.Dapper.UtilitiesTests.csproj", "{99BD8233-C804-430F-BA09-3A6A2E204547}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B1BEC8D9-0F84-423E-9794-CBEE45D845B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1BEC8D9-0F84-423E-9794-CBEE45D845B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1BEC8D9-0F84-423E-9794-CBEE45D845B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99BD8233-C804-430F-BA09-3A6A2E204547}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99BD8233-C804-430F-BA09-3A6A2E204547}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99BD8233-C804-430F-BA09-3A6A2E204547}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99BD8233-C804-430F-BA09-3A6A2E204547}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
