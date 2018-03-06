@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="DapperDataOperator.cs" />
     <Compile Include="DapperOracleOperator.cs" />
+    <Compile Include="DapperSQLiteBackup.cs" />
     <Compile Include="DapperSQLiteOperator.cs" />
     <Compile Include="DapperSqlServerOperator.cs" />
     <Compile Include="DapperTransaction.cs" />

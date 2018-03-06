@@ -1,12 +1,10 @@
 ﻿namespace YanZhiwei.DotNet.Dapper.Utilities
 {
+    using global::Dapper;
     using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-
-    using global::Dapper;
-
     using YanZhiwei.DotNet2.Utilities.Model;
 
     /// <summary>
@@ -26,6 +24,15 @@
         #endregion Fields
 
         #region Constructors
+
+        /// <summary>
+        /// 开启事务
+        /// </summary>
+        /// <returns>DapperTransaction</returns>
+        public DapperTransaction BeginTranscation()
+        {
+            return new DapperTransaction(CreateConnection()) { };
+        }
 
         /// <summary>
         /// 构造函数
@@ -98,6 +105,17 @@
         public virtual int ExecuteNonQuery<T>(DapperTransaction tran, string sql, T parameters)
         {
             return tran.DbConnection.Execute(sql, parameters, tran.DbTransaction);
+        }
+
+        /// <summary>
+        /// ExecuteNonQuery
+        /// </summary>
+        /// <param name="tran">DapperTransaction</param>
+        /// <param name="sql">sql 语句</param>
+        /// <returns>影响行数</returns>
+        public virtual int ExecuteNonQuery(DapperTransaction tran, string sql)
+        {
+            return tran.DbConnection.Execute(sql, null, tran.DbTransaction);
         }
 
         /// <summary>
