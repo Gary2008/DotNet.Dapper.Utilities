@@ -6,6 +6,8 @@
 
     using YanZhiwei.DotNet.Dapper.UtilitiesTests.Model;
     using YanZhiwei.DotNet2.Utilities.Common;
+    using YanZhiwei.DotNet2.Utilities.DataBase;
+    using YanZhiwei.DotNet2.Utilities.Enum;
 
     [TestClass]
     public class DapperSqlServerOperatorTests
@@ -33,6 +35,20 @@
             var _actualWhere = sqlHelper.ExecuteDataTable<Person>(_sqlWhere, new Person() { Age = 2 });
             Assert.IsNotNull(_actualWhere);
             Assert.AreEqual(_actualWhere.Rows.Count, 1);
+        }
+
+        [TestMethod]
+        public void ExecuteScalarTest()
+        {
+            string _sql = @"SELECT p.UserName
+            FROM dbo.Person p
+            WHERE p.Age = @Age;";
+            Assert.IsNotNull(sqlHelper.ExecuteReader(_sql, new { Age = 1 }));
+            Assert.IsNotNull(sqlHelper.ExecuteReader(_sql, new Person { Age = 1 }));
+            _sql = @"SELECT p.UserName
+            FROM dbo.Person p
+            WHERE p.Age = 1;";
+            Assert.IsNotNull(sqlHelper.ExecuteReader(_sql));
         }
 
         [TestInitialize]
@@ -65,6 +81,43 @@
                 _person.RegisterDate = RandomHelper.NextDateTime();
                 sqlHelper.ExecuteNonQuery<Person>(_sql, _person);
             }
+        }
+
+        [TestMethod]
+        public void QueryListTest()
+        {
+            string _sql = @"SELECT p.*
+            FROM dbo.Person p
+            WHERE p.Age > @Age;";
+            Assert.IsNotNull(sqlHelper.QueryList<Person>(_sql, new { Age = 1 }));
+            Assert.IsNotNull(sqlHelper.QueryList<Person>(_sql, new Person { Age = 1 }));
+            _sql = @"SELECT p.*
+            FROM dbo.Person p
+            WHERE p.Age = 1;";
+            Assert.IsNotNull(sqlHelper.QueryList<Person>(_sql));
+        }
+
+        [TestMethod]
+        public void QueryPageListTest()
+        {
+            string _sql = SqlServerPageScript.TablePageSQLByRowNumber("Person", "*", "Age", string.Empty, OrderType.Desc, 5, 1);
+            var _acutal = sqlHelper.QueryPageList<Person>(_sql, 1, 5);
+            Assert.AreEqual(10, _acutal.TotalCount);
+            Assert.AreEqual(2, _acutal.TotalPage);
+        }
+
+        [TestMethod]
+        public void QueryTest()
+        {
+            string _sql = @"SELECT p.*
+            FROM dbo.Person p
+            WHERE p.Age = @Age;";
+            Assert.IsNotNull(sqlHelper.Query<Person>(_sql, new { Age = 1 }));
+            Assert.IsNotNull(sqlHelper.Query<Person>(_sql, new Person { Age = 1 }));
+            _sql = @"SELECT p.*
+            FROM dbo.Person p
+            WHERE p.Age = 1;";
+            Assert.IsNotNull(sqlHelper.Query<Person>(_sql));
         }
 
         #endregion Methods

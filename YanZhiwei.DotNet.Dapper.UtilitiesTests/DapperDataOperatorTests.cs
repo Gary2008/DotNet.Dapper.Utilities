@@ -16,5 +16,7 @@ namespace YanZhiwei.DotNet.Dapper.Utilities.Tests
         {
             Assert.Fail();
         }
+
+       
     }
 }

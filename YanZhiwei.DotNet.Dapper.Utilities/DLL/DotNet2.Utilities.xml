@@ -171,6 +171,15 @@
             时间：2016-01-06 15:19
             备注：
         </member>
+        <member name="M:YanZhiwei.DotNet2.Utilities.Builder.SqlScriptBuilder.JoinQueryWhereSql(System.String)">
+            <summary>
+            添加筛选条件
+            </summary>
+            <param name="sqlWhere">sql语句</param>
+            <returns>sql语句</returns>
+            时间：2018/3/9 20:29
+            说明：
+        </member>
         <member name="T:YanZhiwei.DotNet2.Utilities.Builder.BuilderKey">
             <summary>
             用于构建缓存的类
@@ -6607,7 +6616,18 @@
             创建时间:2015-05-22 11:48
             备注说明:<c>null</c>
         </member>
-        <member name="M:YanZhiwei.DotNet2.Utilities.DataBase.SqlServerPageScript.JoinPageSQLByRowNumber(System.String,System.String,System.String,System.String,YanZhiwei.DotNet2.Utilities.Enum.OrderType,System.Int32,System.Int32)">
+        <member name="M:YanZhiwei.DotNet2.Utilities.DataBase.SqlServerPageScript.MultiTablePageByRowNumber(System.String,System.String,YanZhiwei.DotNet2.Utilities.Enum.OrderType,System.Int32,System.Int32)">
+            <summary>
+            多表分页
+            </summary>
+            <param name="sql">条件查询语句,删除Order By条件</param>
+            <param name="orderByColumn">排序字段</param>
+            <param name="orderType">排序方式，降序或升序</param>
+            <param name="pageIndex">分页索引</param>
+            <param name="pageSize">分页大小</param>
+            <returns>完整分页语句</returns>
+        </member>
+        <member name="M:YanZhiwei.DotNet2.Utilities.DataBase.SqlServerPageScript.TablePageSQLByRowNumber(System.String,System.String,System.String,System.String,YanZhiwei.DotNet2.Utilities.Enum.OrderType,System.Int32,System.Int32)">
             <summary>
             利用[ROW_NUMBER() over]分页，生成sql语句
             </summary>
@@ -6620,7 +6640,7 @@
             <param name="pIndex">页数『从壹开始算』</param>
             <returns>生成分页sql脚本</returns>
         </member>
-        <member name="M:YanZhiwei.DotNet2.Utilities.DataBase.SqlServerPageScript.JoinPageSQLByTopMax(System.String,System.String,System.String,System.String,YanZhiwei.DotNet2.Utilities.Enum.OrderType,System.Int32,System.Int32)">
+        <member name="M:YanZhiwei.DotNet2.Utilities.DataBase.SqlServerPageScript.TablePageSQLByTopMax(System.String,System.String,System.String,System.String,YanZhiwei.DotNet2.Utilities.Enum.OrderType,System.Int32,System.Int32)">
             <summary>
             利用[Top Max]分页，生成sql语句
             </summary>
@@ -6633,7 +6653,7 @@
             <param name="pIndex">页数『从壹开始算』</param>
             <returns>生成分页sql脚本</returns>
         </member>
-        <member name="M:YanZhiwei.DotNet2.Utilities.DataBase.SqlServerPageScript.JoinPageSQLByTopNotIn(System.String,System.String,System.String,System.String,YanZhiwei.DotNet2.Utilities.Enum.OrderType,System.Int32,System.Int32)">
+        <member name="M:YanZhiwei.DotNet2.Utilities.DataBase.SqlServerPageScript.TablePageSQLByTopNotIn(System.String,System.String,System.String,System.String,YanZhiwei.DotNet2.Utilities.Enum.OrderType,System.Int32,System.Int32)">
             <summary>
             利用[Top NotIn]分页，生成sql语句
             </summary>
