@@ -1,4 +1,5 @@
-#### Dapper 辅助类
+#### Dapper 工具类库
+
 ######  扩展ExecuteDataTable，ExecuteNonQuery，ExecuteReader，ExecuteScalar，Query，QueryList，QueryPageList方法，并支持事务处理，可以方便项目中快速使用Dapper
 
 ###### 单元测试：
