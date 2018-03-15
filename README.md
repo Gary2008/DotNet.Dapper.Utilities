@@ -1,18 +1,15 @@
-# Dapper 辅助类
-1. ExecuteDataTable
-
-   ```
-   string _sql = "SELECT * FROM [dbo].[Person]";
-   var _actual = sqlHelper.ExecuteDataTable(_sql);
-   Assert.IsNotNull(_actual);
-   Assert.AreEqual(_actual.Rows.Count, 10);
-    
-   string _sqlWhere = @"SELECT *
-   FROM [dbo].[Person]
-   WHERE [Age] = @Age;";
-    
-   var _actualWhere = sqlHelper.ExecuteDataTable<Person>(_sqlWhere, new Person() { Age = 2 });
-   Assert.IsNotNull(_actualWhere);
-   Assert.AreEqual(_actualWhere.Rows.Count, 1);
-   ```
-
+```c#
+[TestMethod]
+public void ExecuteScalarTest()
+{
+    string _sql = @"SELECT p.UserName
+    FROM dbo.Person p
+    WHERE p.Age = @Age;";
+    Assert.IsNotNull(sqlHelper.ExecuteReader(_sql, new { Age = 1 }));
+    Assert.IsNotNull(sqlHelper.ExecuteReader(_sql, new Person { Age = 1 }));
+    _sql = @"SELECT p.UserName
+    FROM dbo.Person p
+    WHERE p.Age = 1;";
+    Assert.IsNotNull(sqlHelper.ExecuteReader(_sql));
+}
+```
